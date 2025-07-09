@@ -6,8 +6,8 @@ popup_thermostat_temperature:
   show_units: false
   styles:
     grid:
-      - grid-template-areas: "'header' 'content1' 'buttons' 'footer'"
-      - grid-template-rows: "16vh 42vh 14vh 14vh"
+      - grid-template-areas: "'header' 'content1' 'buttons' 'fancontrol'  'slider2' 'footer'"
+      - grid-template-rows: "16vh 46vh 6vh 8vh 14vh 14vh"
       - grid-template-columns: "1fr"
       - column-gap: "30px"
     card:
@@ -15,25 +15,24 @@ popup_thermostat_temperature:
       - box-shadow: "none"
       - padding: "4%"
     custom_fields:
-      header:
-        - align-self: "start"
       content1:
         - align-self: "center"
       buttons:
         - align-self: "start"
-        - width: "50%"
+        - width: "100%"
         - margin: "0 auto"
-      footer:
+      fancontrol:
         - align-self: "start"
-        - margin-top: "25px"
-  extra_styles: |
-    @media (max-width: 800px) {
-      #container {
-        grid-template-rows: 16vh 52vh 14vh 14vh !important;
-      }
-      #buttons {
-        width: 100% !important;
-      }
+        - width: "100%"
+        - margin: "0 auto"
+      slider2:
+        - align-self: "center"
+        - width: "100%"
+        - margin: "0 auto"
+        - maring-top: "-20px"
+      footer:
+        - align-self: "end"
+        - margin-top: "-20px"
   custom_fields:
     header:
       card:
@@ -279,11 +278,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:autorenew"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_hvac_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_hvac_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   hvac_mode: "auto"
               styles:
                 card:
@@ -306,11 +304,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:fire"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_hvac_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_hvac_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   hvac_mode: "heat"
               styles:
                 card:
@@ -333,11 +330,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:snowflake"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_hvac_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_hvac_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   hvac_mode: "cool"
               styles:
                 card:
@@ -360,11 +356,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:water"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_hvac_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_hvac_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   hvac_mode: "dry"
               styles:
                 card:
@@ -387,11 +382,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:fan"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_hvac_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_hvac_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   hvac_mode: "fan_only"
               styles:
                 card:
@@ -414,11 +408,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:sun-snowflake"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_hvac_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_hvac_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   hvac_mode: "heat_cool"
               styles:
                 card:
@@ -441,11 +434,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:toggle-switch-off"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_preset_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_preset_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   preset_mode: "[[[ if ('preset_mode' in entity.attributes) {return entity.attributes.preset_mode.includes('none') ? 'none' : 'None'} ]]]"
               styles:
                 card:
@@ -469,11 +461,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:home-switch-outline"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_preset_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_preset_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   preset_mode: "[[[ if ('preset_mode' in entity.attributes) {return entity.attributes.preset_mode.includes('away') ? 'away' : 'Away'} ]]]"
               styles:
                 card:
@@ -497,11 +488,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:car-seat-cooler"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_preset_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_preset_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   preset_mode: "[[[ if ('preset_mode' in entity.attributes) {return entity.attributes.preset_mode.includes('comfort') ? 'comfort' : 'Comfort'} ]]]"
               styles:
                 card:
@@ -525,11 +515,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:home"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_preset_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_preset_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   preset_mode: "[[[ if ('preset_mode' in entity.attributes) {return entity.attributes.preset_mode.includes('home') ? 'home' : 'Home'} ]]]"
               styles:
                 card:
@@ -553,11 +542,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:sleep"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_preset_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_preset_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   preset_mode: "[[[ if ('preset_mode' in entity.attributes) {return entity.attributes.preset_mode.includes('sleep') ? 'sleep' : 'Sleep'} ]]]"
               styles:
                 card:
@@ -581,11 +569,10 @@ popup_thermostat_temperature:
               template: "widget_icon"
               icon: "mdi:ticket"
               tap_action:
-                action: "perform-action"
-                perform_action: "climate.set_preset_mode"
-                target:
+                action: "call-service"
+                service: "climate.set_preset_mode"
+                service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-                data:
                   preset_mode: "[[[ if ('preset_mode' in entity.attributes) {return entity.attributes.preset_mode.includes('activity') ? 'activity' : 'Activity'} ]]]"
               styles:
                 card:
@@ -602,6 +589,250 @@ popup_thermostat_temperature:
                       - background-color: "var(--card-background-color)"
                       - box-shadow: "var( --ha-card-box-shadow)"
                       - transform: "scale(0.95)"
+
+
+    fancontrol:
+      card:
+        type: "custom:button-card"
+        styles:
+          grid:
+            - grid-template-areas: >
+                [[[
+                      var areas = [];
+                      areas.push("f1");
+                      areas.push("f2");
+                      areas.push("f3");
+                      areas.push("f4");
+                      areas.push("f5");
+
+
+                      return "\"" + areas.join(" ") + "\"";
+                ]]]
+            - grid-template-columns: >
+                [[[
+                      var columns = [];
+                      columns.push("1fr");
+                      columns.push("1fr");
+                      columns.push("1fr");
+                      columns.push("1fr");
+                      columns.push("1fr");
+                      return columns.join(" ");
+                ]]]
+            - grid-template-rows: "min-content"
+            - justify-items: "center"
+          card:
+            - box-shadow: "none"
+            - padding: "0px"
+            - border-radius: "21px"
+            - background-color: "rgba(var(--color-theme),0.1)"
+          custom_fields:
+            f1:
+              - display: >
+                  [[[
+                    return "block";
+                  ]]]
+            f2:
+              - display: >
+                  [[[
+                    return "block";
+                  ]]]
+            f3:
+              - display: >
+                  [[[
+                    return "block";
+                  ]]]
+            f4:
+              - display: >
+                  [[[
+                    return "block";
+                  ]]]
+            f5:
+              - display: >
+                  [[[
+                    return "block";
+                  ]]]
+        custom_fields:
+          f1:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: "widget_icon"
+              icon: "mdi:fan-speed-1"
+              tap_action:
+                action: "call-service"
+                service: "climate.set_fan_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                  fan_mode: 1
+              styles:
+                card:
+                  - background-color: "transparent"
+                  - height: "42px"
+                  - width: "42px"
+                  - border-radius: "50%"
+                  - box-shadow: "none"
+              state:
+                - operator: template
+                  value: >
+                    [[[ return entity.attributes.fan_mode == 1; ]]]
+                  styles:
+                    card:
+                      - background-color: "rgba(196, 129, 5, 1)"
+                      - box-shadow: "var( --ha-card-box-shadow)"
+                      - transform: "scale(0.95)"
+          f2:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: "widget_icon"
+              icon: "mdi:fan-speed-2"
+              tap_action:
+                action: "call-service"
+                service: "climate.set_fan_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                  fan_mode: 2
+              styles:
+                card:
+                  - background-color: "transparent"
+                  - height: "42px"
+                  - width: "42px"
+                  - border-radius: "50%"
+                  - box-shadow: "none"
+              state:
+                - operator: template
+                  value: >
+                    [[[ return entity.attributes.fan_mode == 2; ]]]
+                  styles:
+                    card:
+                      - background-color: "rgba(196, 129, 5, 1)"
+                      - box-shadow: "var( --ha-card-box-shadow)"
+                      - transform: "scale(0.95)"
+          f3:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: "widget_icon"
+              icon: "mdi:fan-speed-3"
+              tap_action:
+                action: "call-service"
+                service: "climate.set_fan_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                  fan_mode: 3
+              styles:
+                card:
+                  - background-color: "transparent"
+                  - height: "42px"
+                  - width: "42px"
+                  - border-radius: "50%"
+                  - box-shadow: "none"
+              state:
+                - operator: template
+                  value: >
+                    [[[ return entity.attributes.fan_mode == 3; ]]]
+                  styles:
+                    card:
+                      - background-color: "rgba(196, 129, 5, 1)"
+                      - box-shadow: "var( --ha-card-box-shadow)"
+                      - transform: "scale(0.95)"
+          f4:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: "widget_icon"
+              icon: "kuno:fan-speed-4"
+              tap_action:
+                action: "call-service"
+                service: "climate.set_fan_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                  fan_mode: 4
+              styles:
+                card:
+                  - background-color: "transparent"
+                  - height: "42px"
+                  - width: "42px"
+                  - border-radius: "50%"
+                  - box-shadow: "none"
+              state:
+                - operator: template
+                  value: >
+                    [[[ return entity.attributes.fan_mode == 4; ]]]
+                  styles:
+                    card:
+                      - background-color: "rgba(196, 129, 5, 1)"
+                      - box-shadow: "var( --ha-card-box-shadow)"
+                      - transform: "scale(0.95)"
+          f5:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: "widget_icon"
+              icon: "kuno:fan-speed-5"
+              tap_action:
+                action: "call-service"
+                service: "climate.set_fan_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                  fan_mode: 5
+              styles:
+                card:
+                  - background-color: "transparent"
+                  - height: "42px"
+                  - width: "42px"
+                  - border-radius: "50%"
+                  - box-shadow: "none"
+              state:
+                - operator: template
+                  value: >
+                    [[[ return entity.attributes.fan_mode == 5; ]]]
+                  styles:
+                    card:
+                      - background-color: "rgba(196, 129, 5, 1)"
+                      - box-shadow: "var( --ha-card-box-shadow)"
+                      - transform: "scale(0.95)"
+
+    slider2:
+      card:
+        type: "custom:my-slider-v2"
+        entity: >
+          [[[
+              if(entity.entity_id == "climate.slaapkamer_ouders") {
+                return "input_number.climate_slaapkamer_ouders";
+              } else if(entity.entity_id == "climate.slaapkamer_kuno") {
+                return "input_number.climate_slaapkamer_kuno";
+              } else if(entity.entity_id == "climate.woonkeuken") {
+                return "input_number.climate_woonkeuken";
+              } else if(entity.entity_id == "climate.bureau") {
+                return "input_number.climate_bureau";
+              }
+          ]]]
+        allowTapping: true
+        vertical: false
+        step: 0.5
+        minThreshold: 0
+        maxThreshold: 24
+        min: 0
+        max: 24
+        intermediate: true
+        styles:
+          card:
+            - height: "40px"
+            - width: "100%"
+            - border-radius: "21px"
+          container:
+            - border-radius: "21px"
+          track:
+            - background: "#272727"
+            - border-radius: "21px"
+          progress:
+            - background: "#CBCBCB"
+            - border-radius: "21px"
+          thumb:
+            - border-radius: "21px"
+            - background: "rgba(0,0,0,0)"
+
     footer:
       card:
         type: "custom:button-card"
@@ -612,6 +843,22 @@ popup_thermostat_temperature:
               type: "custom:button-card"
               template: "popup_button_back"
           item2:
+            card:
+              type: "custom:button-card"
+              template: "popup_button_timer"
+              entity: >
+                [[[
+                    if(entity.entity_id == "climate.slaapkamer_ouders") {
+                      return "switch.climate_slaapkamer_ouders";
+                    } else if(entity.entity_id == "climate.slaapkamer_kuno") {
+                      return "switch.climate_slaapkamer_kuno";
+                    } else if(entity.entity_id == "climate.woonkeuken") {
+                      return "switch.climate_woonkeuken";
+                    } else if(entity.entity_id == "climate.bureau") {
+                      return "switch.climate_bureau";
+                    }
+                ]]]
+          item3:
             card:
               type: "custom:button-card"
               template: "popup_button_power"
