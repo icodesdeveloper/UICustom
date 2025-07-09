@@ -1,0 +1,47 @@
+---
+popup_button_timer:
+  template:
+    - "popup_button"
+    - "ulm_translation_engine"
+  triggers_update: "all"
+  icon: >
+    [[[ 
+      return entity.state === 'on' ? 'mdi:timer-stop-outline' : 'mdi:timer-play-outline';
+    ]]]
+  name: >
+    [[[
+
+
+      var timerId = entity.entity_id.replace("switch.", "timer.");
+      var numberId = entity.entity_id.replace("switch.", "input_number.");
+
+      if (states[timerId].state == 'idle') {
+        var value = parseFloat(states[entity.entity_id.replace("switch.", "input_number.")].state) / 4;
+        var hours = Math.floor(value);
+        var minutes = (value % 1) * 60;
+        var time_formatted = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0');
+        return time_formatted;
+      } else {
+        var finishesAt = new Date(states[timerId].attributes.finishes_at);
+        var now = new Date();
+        var timeLeft = Math.floor((finishesAt - now) / 1000); // Convert to seconds
+        var hoursLeft = Math.floor(timeLeft / 3600);
+        var minutesLeft = Math.floor((timeLeft % 3600) / 60);
+        var secondsLeft = Math.floor(timeLeft % 60);
+        var timeLeftFormatted = hoursLeft.toString().padStart(2, '0') + ':' + minutesLeft.toString().padStart(2, '0') + ':' + secondsLeft.toString().padStart(2, '0');
+        return timeLeftFormatted;
+      }
+
+      
+    ]]]
+  styles:
+    name:
+      - text-transform: "uppercase"
+      - color: "rgba(var(--color-theme),0.5)"
+    icon:
+      - color: "var(--card-background-color)"
+    img_cell:
+      - background-color: "var(--primary-color)"
+      - box-shadow: "none"
+  tap_action:
+    action: "toggle"
